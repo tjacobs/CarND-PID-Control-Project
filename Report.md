@@ -24,7 +24,7 @@ So I throttled up! I set the throttle to be proportional to how close the car wa
 ```
 So as the cross track error increases, the throttle decreases from 0.5 to 0.2.
 
-This got the car around the track, but with a lot of oscilation:
+This got the car around the track, but with a lot of oscillation, and an eventual crash:
 
 ![](v2.gif)
 
@@ -32,6 +32,11 @@ So it's time to move onto the next step in the PID controller, adding some deriv
 
  - P = 0.1
  - I = 0.0
- - D = 1.0
+ - **D = 1.0**
  - Throttle = min(max(1.0-abs(cte/2), 0.2), 0.5)
 
+That resulted in quite a smooth ride, and it gets itself around the track. But it could be smoother still.
+
+![](v3.gif)
+
+Still, pretty good.
