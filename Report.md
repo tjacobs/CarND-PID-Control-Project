@@ -40,3 +40,25 @@ That resulted in quite a smooth ride, and it gets itself around the track. But i
 ![](v3.gif)
 
 Still, pretty good.
+
+Next I scaled the both P and D factors by the car's current speed, from 0.5 to 1.0, so that when the car is slower, it halves the rate at which it steers:
+
+```
+          double speed_factor = fmin(fmax(fabs(speed), 0.5), 1.0);
+```
+
+This improved the car's handling.
+
+Next, I added a small I term, but that didn't improve the handling or stability, so I set it back to 0. This simulation has no steering offset so it is not needed.
+
+So the final params I went with are:
+
+ - speed_factor = min(max(abs(speed), 0.5), 1.0);
+ - P = 0.1 * speed_factor
+ - I = 0.0
+ - D = 1.0 * speed_factor
+ - Throttle = min(max(1.0-abs(cte/2), 0.2), 0.5)
+
+This got it travelling around the track at up to half throttle on the straights, smoothly and safely.
+
+![](v4.gif)

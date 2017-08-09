@@ -53,8 +53,8 @@ int main()
           double throttle;
 
           // Adjust our PIDs according to our current speed
-          double speed_factor = 1.0; //fmin(fmax(1.0-fabs(speed), 0.5), 1.0);
-          pid.Init(0.2 * speed_factor, 0.1, 2.0 * speed_factor);
+          double speed_factor = fmin(fmax(fabs(speed), 0.5), 1.0);
+          pid.Init(0.1 * speed_factor, 0.0 * speed_factor, 1.0 * speed_factor);
 
           // Input cte
           pid.UpdateError(cte);
@@ -65,7 +65,7 @@ int main()
 
           // Adjust throttle according to how closely we're lined up to the middle of the track
           throttle = fmin(fmax(1.0-fabs(cte/2), 0.2), 0.5);
-          
+
           // Debug
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
 
